@@ -10,10 +10,10 @@ var treeObj, stoneObj, groundObject, launcherObject;
 var mango1, mango2, mango3, mango4, mango5, mango6, mango7, mango8, mango9, mango10, mango11, mango12;
 var engine, world;
 var boy;
-var launchingForce = 100;
-
+var bgI
 function preload() {
   boy = loadImage("images/boy.png");
+  bgI = loadImage("images/bg.png")
 }
 
 function setup() {
@@ -23,12 +23,12 @@ function setup() {
 
   stoneObj = new Stone(235, 420, 30);
 
-  mango1 = new Mango(1100, 100, 30);
-  mango2 = new Mango(1170, 130, 30);
-  mango3 = new Mango(1010, 140, 30);
-  mango4 = new Mango(1000, 70, 30);
-  mango5 = new Mango(1100, 70, 30);
-  mango6 = new Mango(1000, 230, 30);
+  mango1 = new Mango(1100, 100, 40);
+  mango2 = new Mango(1170, 130, 40);
+  mango3 = new Mango(1010, 140, 40);
+  mango4 = new Mango(1000, 70, 40);
+  mango5 = new Mango(1100, 70, 40);
+  mango6 = new Mango(1000, 230, 40);
   mango7 = new Mango(900, 230, 40);
   mango8 = new Mango(1140, 150, 40);
   mango9 = new Mango(1100, 230, 40);
@@ -48,12 +48,13 @@ function setup() {
 
 function draw() {
 
-  background(230);
+  background(bgI);
   textSize(25);
   text("Press Space to get a second chance to PLAY!!", 50, 50);
 
   image(boy, 200, 340, 200, 300);
-
+  groundObject.display();
+  launcherObject.display();
   treeObj.display();
   stoneObj.display();
   mango1.display();
@@ -67,10 +68,6 @@ function draw() {
   mango10.display();
   mango11.display();
   mango12.display();
-  stoneObj.display();
-
-  groundObject.display();
-  launcherObject.display();
 
   detectCollision(stoneObj, mango1);
   detectCollision(stoneObj, mango2);
@@ -84,6 +81,10 @@ function draw() {
   detectCollision(stoneObj, mango10);
   detectCollision(stoneObj, mango11);
   detectCollision(stoneObj, mango12);
+  console.log("Hello");
+
+  console.log(mango1);
+
 }
 
 function mouseDragged() {
@@ -92,6 +93,7 @@ function mouseDragged() {
 
 function mouseReleased() {
   launcherObject.fly();
+
 }
 
 function keyPressed() {
@@ -103,11 +105,11 @@ function keyPressed() {
 
 function detectCollision(lstone, lmango) {
 
-  mangoPos = lmango.body.position
-  stonePos = lstone.body.position
+  mangoPos = lmango.body.position;
+  stonePos = lstone.body.position;
 
-  var distance = dist(stonePos.x, stonePos.y, mangoPos.x, mangoPos.y)
-
+  var distance = dist(stonePos.x, stonePos.y, mangoPos.x, mangoPos.y);
+  console.log(lmango);
   if (distance <= lmango.r + lstone.radius) {
     Matter.Body.setStatic(lmango.body, false);
   }
